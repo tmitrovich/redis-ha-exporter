@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ template "redis-ha.name" . }}-server
+  name: {{ template "redis-ha.fullname" . }}-server
   labels:
 {{ include "labels.standard" . | indent 4 }}
 spec:
@@ -9,7 +9,7 @@ spec:
     matchLabels:
       release: {{ .Release.Name }}
       app: {{ template "redis-ha.name" . }}
-  serviceName: {{ template "redis-ha.name" . }}
+  serviceName: {{ template "redis-ha.fullname" . }}
   replicas: {{ .Values.replicas }}
   podManagementPolicy: OrderedReady
   updateStrategy:
@@ -59,7 +59,7 @@ spec:
             {{- if .Values.existingSecret }}
               name: {{ .Values.existingSecret }}
             {{- else }}
-              name: {{ template "redis-ha.name" . }}
+              name: {{ template "redis-ha.fullname" . }}
             {{- end }}  
               key: auth
 {{- end }}
@@ -82,7 +82,7 @@ spec:
         - name: AUTH
           valueFrom:
             secretKeyRef:
-              name: {{ template "redis-ha.name" . }}
+              name: {{ template "redis-ha.fullname" . }}
               key: auth
 {{- end }}
         livenessProbe:
@@ -117,7 +117,7 @@ spec:
         - name: AUTH
           valueFrom:
             secretKeyRef:
-              name: {{ template "redis-ha.name" . }}
+              name: {{ template "redis-ha.fullname" . }}
               key: auth
 {{- end }}
         livenessProbe:
@@ -162,10 +162,10 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: {{ template "redis-ha.name" . }}-configmap
+          name: {{ template "redis-ha.fullname" . }}-configmap
       - name: probes
         configMap:
-          name: {{ template "redis-ha.name" . }}-probes
+          name: {{ template "redis-ha.fullname" . }}-probes
 {{- if .Values.persistentVolume.enabled }}
   volumeClaimTemplates:
   - metadata:

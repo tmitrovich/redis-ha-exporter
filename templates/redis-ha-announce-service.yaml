@@ -1,4 +1,4 @@
-{{- $fullName := include "redis-ha.name" . }}
+{{- $fullName := include "redis-ha.fullname" . }}
 {{- $replicas := int .Values.replicas }}
 {{- $root := . }}
 {{- range $i := until $replicas }}

@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "redis-ha.name" . }}-probes
+  name: {{ template "redis-ha.fullname" . }}-probes
   labels:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    app: {{ template "redis-ha.name" . }}
+    app: {{ template "redis-ha.fullname" . }}
 data:
   check-quorum.sh: |
     #!/bin/sh

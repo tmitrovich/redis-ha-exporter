@@ -2,7 +2,7 @@
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ template "redis-ha.name" . }}-pdb
+  name: {{ template "redis-ha.fullname" . }}-pdb
   labels:
 {{ include "labels.standard" . | indent 4 }}
 spec:

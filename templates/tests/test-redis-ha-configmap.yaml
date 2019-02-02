@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ template "redis-ha.name" . }}-configmap-test
+  name: {{ template "redis-ha.fullname" . }}-configmap-test
   labels:
 {{ include "labels.standard" . | indent 4 }}
   annotations:
@@ -29,8 +29,8 @@ spec:
   volumes:
   - name: config
     configMap:
-      name: {{ template "redis-ha.name" . }}-configmap
+      name: {{ template "redis-ha.fullname" . }}-configmap
   - name: probes
     configMap:
-      name: {{ template "redis-ha.name" . }}-probes
+      name: {{ template "redis-ha.fullname" . }}-probes
   restartPolicy: Never
